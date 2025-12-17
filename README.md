@@ -35,7 +35,7 @@ long fibIterative(int n) {
 }
 
 long fibMemoized(int n) {
-    long[50] memo;
+    long memo[50];
     int i;
     
     // Initialize memo array
