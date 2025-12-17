@@ -36,51 +36,9 @@ long fibIterative(int n) {
     return curr;
 }
 
-long fibMemoized(int n) {
-    long memo[50];
-    int i;
-    
-    // Initialize memo array
-    memo[0] = 0L;
-    memo[1] = 1L;
-    
-    for (i = 2; i <= n; i++) {
-        memo[i] = memo[i - 1] + memo[i - 2];
-    }
-    
-    return memo[n];
-}
-
-void printFibonacciSequence(int count) {
-    int i;
-    long fib;
-    
-    printf("First %d Fibonacci numbers:\n", count);
-    for (i = 0; i < count; i++) {
-        fib = fibIterative(i);
-        printf("F(%d) = %ld\n", i, fib);
-    }
-}
-
 void main() {
-    int n;
-    long result;
-    
-    n = 20;
-    
-    printf("Computing Fibonacci numbers up to F(%d)\n\n", n);
-    
-    // Compare methods for smaller values
     printf("Recursive: F(10) = %ld\n", fibRecursive(10));
     printf("Iterative: F(10) = %ld\n", fibIterative(10));
-    printf("Memoized:  F(10) = %ld\n", fibMemoized(10));
-    
-    printf("\n");
-    
-    // Print sequence
-    printFibonacciSequence(15);
-    
-    printf("\n");
 }
 ```
 
