@@ -86,7 +86,7 @@ void main() {
 ```
 import printf;
 
-int[1000] numbers;
+int numbers[1000];
 
 void swap(int i, int j) {
     int temp;
