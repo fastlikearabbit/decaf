@@ -1,5 +1,6 @@
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub enum Token {
+    // Keywords
     If,
     Bool,
     Break,
@@ -16,12 +17,14 @@ pub enum Token {
     True,
     Void,
 
+    // Operators
     Plus,
     Minus,
     Star,
     Slash,
     Percent,
 
+    // Assignment operators
     Assign,
     PlusAssign,
     MinusAssign,
@@ -29,14 +32,17 @@ pub enum Token {
     SlashAssign,
     PercentAssign,
 
+    // Comparison operators
     LessThan,
     GreaterThan,
     LessThanEqual,
     GreaterThanEqual,
 
+    // Equality operators
     Equal,
     NotEqual,
 
+    // Logical operators
     LogicalAnd,
     LogicalOr,
     LogicalNot,
@@ -44,6 +50,7 @@ pub enum Token {
     Increment,
     Decrement,
 
+    // Delimiters
     LeftParen,
     RightParen,
     LeftBrace,
@@ -54,9 +61,9 @@ pub enum Token {
     Comma,
     Semicolon,
 
+    // Literals
     IntLiteral(String),
     LongLiteral(String),
-
     CharLiteral(char),
     StringLiteral(String),
 
@@ -78,6 +85,8 @@ impl std::fmt::Display for Token {
             Token::Int => write!(f, "int"),
             Token::Long => write!(f, "long"),
             Token::Return => write!(f, "return"),
+            Token::Len => write!(f, "len"),
+            Token::True => write!(f, "true"),
             Token::Void => write!(f, "void"),
 
             Token::Plus => write!(f, "+"),

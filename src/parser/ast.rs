@@ -193,3 +193,130 @@ pub enum ExternArg {
     Expr(Expr),
     StringLiteral(String),
 }
+
+impl Program {
+    pub fn new() -> Self {
+        Program {
+            imports: Vec::new(),
+            fields: Vec::new(),
+            methods: Vec::new(),
+        }
+    }
+
+    pub fn find_method(&self, name: &str) -> Option<&MethodDecl> {
+        self.methods.iter().find(|m| m.name.0 == name)
+    }
+
+    pub fn has_main(&self) -> bool {
+        self.find_method("main").is_some()
+    }
+}
+
+impl MethodDecl {
+    pub fn new(
+        return_type: Option<Type>,
+        name: Identifier,
+        parameters: Vec<Parameter>,
+        body: Block,
+    ) -> Self {
+        MethodDecl {
+            return_type,
+            name,
+            parameters,
+            body,
+        }
+    }
+
+    pub fn is_void(&self) -> bool {
+        self.return_type.is_none()
+    }
+}
+
+impl Block {
+    pub fn new() -> Self {
+        Block {
+            field_decls: Vec::new(),
+            statements: Vec::new(),
+        }
+    }
+
+    pub fn with_statements(statements: Vec<Statement>) -> Self {
+        Block {
+            field_decls: Vec::new(),
+            statements,
+        }
+    }
+}
+
+impl Expr {
+    pub fn binary(left: Expr, op: BinOp, right: Expr) -> Self {
+        Expr::Binary {
+            left: Box::new(left),
+            op,
+            right: Box::new(right),
+        }
+    }
+
+    pub fn unary(op: UnaryOp, expr: Expr) -> Self {
+        Expr::Unary {
+            op,
+            expr: Box::new(expr),
+        }
+    }
+
+    pub fn int_lit(value: i32) -> Self {
+        Expr::Literal(Literal::Int(value))
+    }
+
+    pub fn long_lit(value: i64) -> Self {
+        Expr::Literal(Literal::Long(value))
+    }
+
+    pub fn bool_lit(value: bool) -> Self {
+        Expr::Literal(Literal::Bool(value))
+    }
+
+    pub fn char_lit(value: char) -> Self {
+        Expr::Literal(Literal::Char(value))
+    }
+}
+
+impl BinOp {
+    pub fn is_arithmetic(&self) -> bool {
+        matches!(
+            self,
+            BinOp::Add | BinOp::Sub | BinOp::Mul | BinOp::Div | BinOp::Mod
+        )
+    }
+
+    pub fn is_relational(&self) -> bool {
+        matches!(self, BinOp::Lt | BinOp::Gt | BinOp::Le | BinOp::Ge)
+    }
+
+    pub fn is_equality(&self) -> bool {
+        matches!(self, BinOp::Eq | BinOp::Ne)
+    }
+
+    pub fn is_conditional(&self) -> bool {
+        matches!(self, BinOp::And | BinOp::Or)
+    }
+}
+
+impl Identifier {
+    pub fn new(name: String) -> Self {
+        Identifier(name)
+    }
+}
+
+impl Location {
+    pub fn scalar(name: String) -> Self {
+        Location::Scalar(Identifier::new(name))
+    }
+
+    pub fn array(name: String, index: Expr) -> Self {
+        Location::Array {
+            name: Identifier::new(name),
+            index: Box::new(index),
+        }
+    }
+}
