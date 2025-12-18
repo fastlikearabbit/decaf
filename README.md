@@ -1,4 +1,4 @@
-## !!! WORK IN PROGRESS !!!
+## !!! WORK IN PROGRESS (rewrite of thesis project) !!!
 
 ### Examples
 
